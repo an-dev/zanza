@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+
+from urllib import request
+from datetime import datetime, timedelta
+
+dest_folder = '~/Downloads/'
+yesterday = datetime.today().date() - timedelta(days=1)
+
+url      = 'http://audio.radio24.ilsole24ore.com/radio24_audio/%d/%s-lazanzara.mp3' % (yesterday.year, yesterday.isoformat().replace('-','')[2:])
+filename = '%s-lazanzara.mp3' % yesterday.isoformat().replace('-','')[2:]
+
+try:
+    print(url)
+    with request.urlopen(url) as response, open('%s%s' % (dest_folder, filename), 'wb') as output:
+        data = response.read()
+        output.write(data)
+except:
+    print('Could not download episode!')
+
+
